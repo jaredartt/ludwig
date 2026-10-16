@@ -11,20 +11,20 @@
 <style>
 *{box-sizing:border-box}
 :root{
-  --bg:#fbf8f2;--surface:#f2ece1;--soft:#e7dfd0;--ink:#2e2923;--muted:#8a8174;
-  --peach:#f7cdb0;--sage:#cde3c6;--lav:#ddd6f1;--butter:#f6e4a6;--sky:#c9e3ee;--rose:#f5cdd5;--gold:#f2c75a;
-  --peach-s:#ee9d70;--sage-s:#7fb673;--lav-s:#9d8bd8;--butter-s:#e4bb45;--sky-s:#6fb1cc;--rose-s:#e3849a;--gold-s:#e3a928;
-  --blob-op:.7;--ring-track:rgba(255,255,255,.6);--mixp:52%}
+  --bg:#ffffff;--surface:#f6f6fa;--soft:#e9e9f1;--ink:#1c1a22;--muted:#7b7889;
+  --peach:#ff8f66;--sage:#54dc8e;--lav:#ab92ff;--butter:#ffd43b;--sky:#44c4f5;--rose:#ff6f9f;--gold:#ffb81f;
+  --peach-s:#ff6a33;--sage-s:#18c068;--lav-s:#7b5cf6;--butter-s:#f2b200;--sky-s:#0aa5e8;--rose-s:#f43f7c;--gold-s:#f59e0b;
+  --blob-op:.55;--ring-track:rgba(255,255,255,.55);--mixp:38%}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#1b1713;--surface:#26201a;--soft:#342c24;--ink:#f3eadd;--muted:#a49685;
-  --peach:#80513a;--sage:#4d6e48;--lav:#5b5080;--butter:#7d6a38;--sky:#3c6475;--rose:#7c4e59;--gold:#b78a2a;
-  --peach-s:#e8a07a;--sage-s:#8fc784;--lav-s:#b2a3ea;--butter-s:#e2c25e;--sky-s:#7cc0da;--rose-s:#ea97a9;--gold-s:#f0be4a;
-  --blob-op:.45;--ring-track:rgba(0,0,0,.22);--mixp:14%}}
+  --bg:#121016;--surface:#1c1a23;--soft:#2b2833;--ink:#f6f3fb;--muted:#a29eb2;
+  --peach:#c95a2f;--sage:#27915b;--lav:#6d50dc;--butter:#b98a0b;--sky:#1a82b4;--rose:#c63b6b;--gold:#c98a0a;
+  --peach-s:#ff8a5c;--sage-s:#4be08f;--lav-s:#b39dff;--butter-s:#ffd23f;--sky-s:#58cdfa;--rose-s:#ff7aa5;--gold-s:#ffc233;
+  --blob-op:.5;--ring-track:rgba(0,0,0,.25);--mixp:14%}}
 :root[data-theme="dark"]{
-  --bg:#1b1713;--surface:#26201a;--soft:#342c24;--ink:#f3eadd;--muted:#a49685;
-  --peach:#80513a;--sage:#4d6e48;--lav:#5b5080;--butter:#7d6a38;--sky:#3c6475;--rose:#7c4e59;--gold:#b78a2a;
-  --peach-s:#e8a07a;--sage-s:#8fc784;--lav-s:#b2a3ea;--butter-s:#e2c25e;--sky-s:#7cc0da;--rose-s:#ea97a9;--gold-s:#f0be4a;
-  --blob-op:.45;--ring-track:rgba(0,0,0,.22);--mixp:14%}
+  --bg:#121016;--surface:#1c1a23;--soft:#2b2833;--ink:#f6f3fb;--muted:#a29eb2;
+  --peach:#c95a2f;--sage:#27915b;--lav:#6d50dc;--butter:#b98a0b;--sky:#1a82b4;--rose:#c63b6b;--gold:#c98a0a;
+  --peach-s:#ff8a5c;--sage-s:#4be08f;--lav-s:#b39dff;--butter-s:#ffd23f;--sky-s:#58cdfa;--rose-s:#ff7aa5;--gold-s:#ffc233;
+  --blob-op:.5;--ring-track:rgba(0,0,0,.25);--mixp:14%}
 html{color-scheme:light dark}
 :root[data-theme="light"]{color-scheme:light}
 :root[data-theme="dark"]{color-scheme:dark}
@@ -34,19 +34,25 @@ button{cursor:pointer;background:none;padding:0}
 :focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:12px}
 .ti,.tif{line-height:1;vertical-align:-.12em}
 
-/* ---- gooey blobs: big blob + mini blobs that split off and merge back, with grain (filters injected by JS) ---- */
+/* ---- gooey blobs: big blob + mini blobs that split off and merge back, (filters injected by JS) ---- */
 .goo{position:fixed;inset:0;overflow:hidden;z-index:0;pointer-events:none;filter:url(#goo);opacity:var(--blob-op)}
 .g{position:absolute;--c:var(--peach)}
-.g .big{position:absolute;inset:0;background:var(--c);animation:morph 16s ease-in-out infinite alternate}
-.g .m{position:absolute;left:50%;top:50%;width:var(--sz);height:var(--sz);margin:calc(var(--sz)/-2) 0 0 calc(var(--sz)/-2);border-radius:50%;background:var(--c);animation:out var(--t) ease-in-out var(--dl) infinite}
+.g .big{position:absolute;inset:0;background:var(--c);animation:morph 9s ease-in-out infinite alternate,squish 6.5s ease-in-out infinite alternate}
+.g .m{border-radius:50%;position:absolute;left:50%;top:50%;width:var(--sz);height:var(--sz);margin:calc(var(--sz)/-2) 0 0 calc(var(--sz)/-2);border-radius:50%;background:var(--c);animation:out var(--t) ease-in-out var(--dl) infinite}
 .goo .g{animation:drift var(--dr,34s) ease-in-out var(--dd,0s) infinite alternate}
 @keyframes morph{
-  0%{border-radius:42% 58% 63% 37%/41% 44% 56% 59%}
-  33%{border-radius:58% 42% 38% 62%/55% 61% 39% 45%}
-  66%{border-radius:36% 64% 52% 48%/62% 38% 62% 38%}
-  100%{border-radius:61% 39% 45% 55%/40% 57% 43% 60%}}
+  0%{border-radius:30% 70% 70% 30%/30% 30% 70% 70%}
+  25%{border-radius:58% 42% 25% 75%/62% 35% 65% 38%}
+  50%{border-radius:70% 30% 55% 45%/38% 72% 28% 62%}
+  75%{border-radius:25% 75% 38% 62%/72% 26% 74% 28%}
+  100%{border-radius:62% 38% 68% 32%/45% 62% 38% 55%}}
+@keyframes squish{
+  0%{transform:scale(1,1) rotate(0deg)}
+  30%{transform:scale(1.22,.82) rotate(38deg)}
+  60%{transform:scale(.84,1.2) rotate(-26deg)}
+  100%{transform:scale(1.12,.9) rotate(70deg)}}
 @keyframes drift{from{transform:translate3d(0,0,0) rotate(0deg) scale(1)}to{transform:translate3d(5vw,4vh,0) rotate(24deg) scale(1.08)}}
-@keyframes out{0%,100%{transform:translate(0,0) scale(.15)}38%,62%{transform:translate(var(--dx),var(--dy)) scale(1)}50%{transform:translate(calc(var(--dx)*1.12),calc(var(--dy)*1.12)) scale(.9)}}
+@keyframes out{0%,100%{transform:translate(0,0) scale(.12)}18%{transform:translate(calc(var(--dx)*.45),calc(var(--dy)*.45)) scale(.7,.38)}36%{transform:translate(var(--dx),var(--dy)) scale(1.15,.8)}52%{transform:translate(calc(var(--dx)*1.15),calc(var(--dy)*1.15)) scale(.8,1.2)}68%{transform:translate(var(--dx),var(--dy)) scale(1.1,.9)}84%{transform:translate(calc(var(--dx)*.4),calc(var(--dy)*.4)) scale(.38,.7)}}
 .bb{position:absolute;inset:0;z-index:-1;pointer-events:none;filter:url(#goo-m)}
 .bb .g{--c:var(--bl)}
 .has-bb{position:relative;overflow:hidden;isolation:isolate}
@@ -61,7 +67,7 @@ header p{margin:2px 0 0;color:var(--muted);font-size:13px}
 .icon-btn:active{background:var(--soft)}
 .sync{width:9px;height:9px;border-radius:50%;background:var(--sage-s)}
 .sync.off{background:var(--rose-s)}
-.bar{position:sticky;top:0;z-index:5;background:var(--bg)}
+.bar{position:sticky;top:0;z-index:5;pointer-events:none}.bar .tabs{pointer-events:auto}
 .bar .wrap{padding-top:8px;padding-bottom:12px}
 
 /* tabs: segmented control with a gooey blob that stretches to the selected tab */
@@ -91,7 +97,7 @@ header p{margin:2px 0 0;color:var(--muted);font-size:13px}
 .mascot .eyes ellipse{fill:var(--ink)}
 .mascot .cheek{fill:var(--rose-s);opacity:.5}
 .mascot .mouth{fill:none;stroke:var(--ink);stroke-width:3.4;stroke-linecap:round}
-@keyframes float{0%,100%{transform:translateY(0) scale(1,1)}50%{transform:translateY(-6px) scale(1.02,.98)}}
+@keyframes float{0%,100%{transform:translateY(0) scale(1,1)}25%{transform:translateY(-4px) scale(.94,1.06)}50%{transform:translateY(-8px) scale(1.06,.94)}75%{transform:translateY(-3px) scale(.97,1.03)}}
 @keyframes blink{0%,93%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
 @keyframes mout{0%,100%{transform:translate(0,0) scale(.25)}40%,60%{transform:translate(var(--dx),var(--dy)) scale(1)}}
 
@@ -121,7 +127,9 @@ header p{margin:2px 0 0;color:var(--muted);font-size:13px}
 .node{position:absolute;width:68px;height:68px;margin:-34px 0 0 -34px;border-radius:50%;display:grid;place-items:center;font-size:27px;background:var(--n);color:var(--ink);transition:transform .12s,border-radius .4s}
 .node>.ti{position:relative;z-index:1}
 .node:active{transform:scale(.92)}
-.node:hover{border-radius:44% 56% 52% 48%/54% 46% 54% 46%}
+@keyframes nmorph{0%{border-radius:50%}25%{border-radius:38% 62% 56% 44%/58% 40% 60% 42%}50%{border-radius:60% 40% 44% 56%/42% 60% 40% 58%}75%{border-radius:44% 56% 62% 38%/60% 46% 54% 40%}100%{border-radius:56% 44% 40% 60%/46% 58% 42% 54%}}
+.node{animation:nmorph 8s ease-in-out infinite alternate}
+.node:nth-child(2n){animation-delay:-3s}.node:nth-child(3n){animation-delay:-5.5s}
 .node.opt{width:52px;height:52px;margin:-26px 0 0 -26px;font-size:21px}
 .node.s0{--n:var(--surface)}
 .node.s0>.ti{opacity:.4}
@@ -130,10 +138,10 @@ header p{margin:2px 0 0;color:var(--muted);font-size:13px}
 .node.s3{--n:var(--sage)}
 .node.s4{--n:var(--gold)}
 .badge{position:absolute;right:-4px;top:-4px;z-index:2;width:24px;height:24px;border-radius:50%;background:var(--ink);color:var(--bg);font-size:13px;display:grid;place-items:center}
-.node.next,.node.soon{background:none;animation:bob 1.7s ease-in-out infinite}
+.node.next,.node.soon{background:none;animation:bob 1.7s ease-in-out infinite,nmorph 6s ease-in-out infinite alternate}
 .node.next{--n:var(--peach)}
 .node.soon{--n:var(--butter)}
-.node.soon{animation-delay:-.6s}
+.node.soon{animation-delay:-.6s,-2s}
 .nb{position:absolute;inset:-40px;z-index:0;filter:url(#goo-m);pointer-events:none;display:grid;place-items:center}
 .nb .g{position:relative;--c:var(--n)}
 .node.next::before{content:"Next up";z-index:3;position:absolute;top:-38px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);font-size:11.5px;font-weight:500;padding:4px 11px;border-radius:12px;white-space:nowrap}
@@ -197,7 +205,7 @@ input[type=search]::placeholder{color:var(--muted)}
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs id="defs"></defs></svg>
-<div class="goo" id="goo" aria-hidden="true"></div>
+<div class="goo" id="bgblobs" aria-hidden="true"></div>
 <div class="wrap">
   <header>
     <span id="hm"></span>
@@ -225,25 +233,25 @@ const ic=n=>`<i class="ti ti-${n}"></i>`;
 const icf=n=>`<i class="tif tif-${n}"></i>`;
 
 /* gooey filter with grain: blur + alpha threshold merges blobs; fractal noise speckles are clipped to the blob shape */
-function gooFilter(id,std,freq){return `<filter id="${id}" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceGraphic" stdDeviation="${std}" result="b"/><feColorMatrix in="b" type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 20 -9" result="g"/><feTurbulence type="fractalNoise" baseFrequency="${freq}" numOctaves="2" seed="4" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 .16 0 0 0 0 .12 0 0 0 0 .08 1.7 0 0 0 -.9" result="dk"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 -1.7 0 0 0 .8" result="lt"/><feComposite in="dk" in2="g" operator="in" result="dkc"/><feComposite in="lt" in2="g" operator="in" result="ltc"/><feMerge><feMergeNode in="g"/><feMergeNode in="dkc"/><feMergeNode in="ltc"/></feMerge></filter>`}
-$('#defs').innerHTML=gooFilter('goo',13,.8)+gooFilter('goo-m',7,.9)+gooFilter('goo-t',5,.9)+gooFilter('goo-s',3.2,.32);
+function gooFilter(id,std){return `<filter id="${id}" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceGraphic" stdDeviation="${std}" result="b"/><feColorMatrix in="b" type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 20 -9"/></filter>`}
+$('#defs').innerHTML=gooFilter('goo',14)+gooFilter('goo-m',8)+gooFilter('goo-t',5)+gooFilter('goo-s',3.2);
 
 /* mini blobs: n small circles that leave the centre of a big blob and come back */
 function minis(n,spread,seed,unit,min,rng){
   let h='';for(let i=0;i<n;i++){
     const a=((seed*47+i*(360/n)+i*21)%360)*Math.PI/180,d=spread*(.75+((i*53+seed*17)%45)/100);
-    h+=`<i class="m" style="--dx:${(Math.cos(a)*d).toFixed(1)}${unit};--dy:${(Math.sin(a)*d).toFixed(1)}${unit};--sz:${(min+((i*29+seed*11)%rng)).toFixed(0)}${unit};--t:${9+((i*7+seed*5)%8)}s;--dl:-${(i*2.3+seed%5).toFixed(1)}s"></i>`}
+    h+=`<i class="m" style="--dx:${(Math.cos(a)*d).toFixed(1)}${unit};--dy:${(Math.sin(a)*d).toFixed(1)}${unit};--sz:${(min+((i*29+seed*11)%rng)).toFixed(0)}${unit};--t:${6+((i*7+seed*5)%6)}s;--dl:-${(i*2.3+seed%5).toFixed(1)}s"></i>`}
   return h}
 function bb(seed,size,spread,n,pos){return `<span class="bb" aria-hidden="true"><span class="g" style="${pos};width:${size}px;height:${size}px"><i class="big" style="animation-delay:-${seed%9}s"></i>${minis(n,spread,seed,'px',Math.round(size*.09),Math.round(size*.1))}</span></span>`}
 function buildBg(){
   const G=[['--c:var(--peach);width:42vmax;height:42vmax;left:-14vmax;top:-14vmax',1,'34s',0],['--c:var(--lav);width:34vmax;height:34vmax;right:-12vmax;top:10vh',2,'40s',-9],['--c:var(--sage);width:38vmax;height:38vmax;left:8vw;bottom:-24vmax',3,'36s',-3],['--c:var(--butter);width:22vmax;height:22vmax;right:5vw;bottom:-4vh',4,'44s',-14],['--c:var(--sky);width:16vmax;height:16vmax;left:46vw;top:34vh',5,'48s',-6]];
-  $('#goo').innerHTML=G.map(([st,seed,dr,dd],i)=>{const sz=parseFloat(st.match(/width:([\d.]+)vmax/)[1]);return `<div class="g" style="${st};--dr:${dr};--dd:${dd}s"><i class="big" style="animation-delay:-${i*3.7}s"></i>${minis(5,sz*.78,seed,'vmax',sz*.07,sz*.08)}</div>`}).join('');
+  $('#bgblobs').innerHTML=G.map(([st,seed,dr,dd],i)=>{const sz=parseFloat(st.match(/width:([\d.]+)vmax/)[1]);return `<div class="g" style="${st};--dr:${dr};--dd:${dd}s"><i class="big" style="animation-delay:-${i*3.7}s"></i>${minis(5,sz*.78,seed,'vmax',sz*.07,sz*.08)}</div>`}).join('');
 }
 buildBg();
 
-const BP=['M50 8C72 8 91 22 92 44C93 68 74 92 50 92C26 92 7 70 8 46C9 24 28 8 50 8Z','M50 10C70 6 94 26 90 48C87 72 70 94 48 91C24 88 6 72 10 50C13 28 30 14 50 10Z','M52 8C74 12 90 30 91 50C92 72 72 90 52 92C28 94 10 76 9 52C8 30 30 6 52 8Z'];
+const BP=['M50 6C74 4 94 22 94 46C94 74 72 94 48 94C24 94 6 74 6 48C6 24 26 8 50 6Z','M50 2C70 2 86 24 86 50C86 78 70 98 50 98C30 98 14 78 14 50C14 24 30 2 50 2Z','M50 14C78 10 98 28 98 50C98 72 76 90 50 90C24 90 2 74 2 50C2 28 22 18 50 14Z','M42 6C66 2 92 18 90 44C98 62 78 94 52 92C34 98 8 80 10 54C2 32 22 10 42 6Z'];
 function mascot(cls){
-  const an=RM?'':`<animate attributeName="d" dur="11s" repeatCount="indefinite" calcMode="spline" keyTimes="0;.33;.66;1" keySplines=".4 0 .6 1;.4 0 .6 1;.4 0 .6 1" values="${BP[0]};${BP[1]};${BP[2]};${BP[0]}"/>`;
+  const an=RM?'':`<animate attributeName="d" dur="6s" repeatCount="indefinite" calcMode="spline" keyTimes="0;.25;.5;.75;1" keySplines=".4 0 .6 1;.4 0 .6 1;.4 0 .6 1;.4 0 .6 1" values="${BP[0]};${BP[1]};${BP[2]};${BP[3]};${BP[0]}"/>`;
   return `<svg class="mascot ${cls||''}" viewBox="0 0 100 100" aria-hidden="true"><g filter="url(#goo-s)"><path class="body" d="${BP[0]}">${an}</path><circle class="mm" cx="50" cy="50" r="9" style="--dx:42px;--dy:-18px;--t:7s;--dl:-1s"/><circle class="mm" cx="50" cy="50" r="7" style="--dx:-40px;--dy:26px;--t:9s;--dl:-4s"/><circle class="mm" cx="50" cy="50" r="6" style="--dx:10px;--dy:46px;--t:8s;--dl:-6s"/></g><g class="eyes"><ellipse cx="37" cy="48" rx="5" ry="6.5"/><ellipse cx="63" cy="48" rx="5" ry="6.5"/></g><ellipse class="cheek" cx="27" cy="60" rx="6.5" ry="4.2"/><ellipse class="cheek" cx="73" cy="60" rx="6.5" ry="4.2"/><path class="mouth" d="M41 62q9 10 18 0"/></svg>`}
 function ring(p,label){const r=24,c=2*Math.PI*r;return `<div class="ring"><svg viewBox="0 0 58 58"><circle class="rt" cx="29" cy="29" r="${r}"/><circle class="rp" cx="29" cy="29" r="${r}" stroke-dasharray="${(c*p/100).toFixed(1)} ${c.toFixed(1)}" transform="rotate(-90 29 29)"/></svg><span>${esc(label)}</span></div>`}
 function lvl(id){return S.levels.find(l=>l.id===id)}
