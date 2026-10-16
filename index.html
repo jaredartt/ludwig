@@ -37,22 +37,28 @@ button{cursor:pointer;background:none;padding:0}
 /* ---- gooey blobs: big blob + mini blobs that split off and merge back, (filters injected by JS) ---- */
 .goo{position:fixed;inset:0;overflow:hidden;z-index:0;pointer-events:none;filter:url(#goo);opacity:var(--blob-op)}
 .g{position:absolute;--c:var(--peach)}
-.g .big{position:absolute;inset:0;background:var(--c);animation:morph 9s ease-in-out infinite alternate,squish 6.5s ease-in-out infinite alternate}
+.g .big{position:absolute;inset:0;background:var(--c);animation:morph 42s ease-in-out infinite alternate,squish 58s ease-in-out infinite alternate}
 .g .m{border-radius:50%;position:absolute;left:50%;top:50%;width:var(--sz);height:var(--sz);margin:calc(var(--sz)/-2) 0 0 calc(var(--sz)/-2);border-radius:50%;background:var(--c);animation:out var(--t) ease-in-out var(--dl) infinite}
-.goo .g{animation:drift var(--dr,34s) ease-in-out var(--dd,0s) infinite alternate}
+.goo .g{animation:drift calc(var(--dr,34s)*3.5) ease-in-out var(--dd,0s) infinite alternate}
 @keyframes morph{
-  0%{border-radius:30% 70% 70% 30%/30% 30% 70% 70%}
-  25%{border-radius:58% 42% 25% 75%/62% 35% 65% 38%}
-  50%{border-radius:70% 30% 55% 45%/38% 72% 28% 62%}
-  75%{border-radius:25% 75% 38% 62%/72% 26% 74% 28%}
-  100%{border-radius:62% 38% 68% 32%/45% 62% 38% 55%}}
+  0%{border-radius:46% 54% 52% 48%/52% 46% 54% 48%}
+  25%{border-radius:55% 45% 43% 57%/45% 57% 43% 55%}
+  50%{border-radius:48% 52% 57% 43%/57% 44% 56% 43%}
+  75%{border-radius:44% 56% 47% 53%/43% 55% 45% 57%}
+  100%{border-radius:53% 47% 45% 55%/48% 52% 48% 52%}}
 @keyframes squish{
   0%{transform:scale(1,1) rotate(0deg)}
-  30%{transform:scale(1.22,.82) rotate(38deg)}
-  60%{transform:scale(.84,1.2) rotate(-26deg)}
-  100%{transform:scale(1.12,.9) rotate(70deg)}}
+  30%{transform:scale(1.14,.9) rotate(34deg)}
+  60%{transform:scale(.9,1.12) rotate(-22deg)}
+  100%{transform:scale(1.08,.93) rotate(62deg)}}
 @keyframes drift{from{transform:translate3d(0,0,0) rotate(0deg) scale(1)}to{transform:translate3d(5vw,4vh,0) rotate(24deg) scale(1.08)}}
-@keyframes out{0%,100%{transform:translate(0,0) scale(.12)}18%{transform:translate(calc(var(--dx)*.45),calc(var(--dy)*.45)) scale(.7,.38)}36%{transform:translate(var(--dx),var(--dy)) scale(1.15,.8)}52%{transform:translate(calc(var(--dx)*1.15),calc(var(--dy)*1.15)) scale(.8,1.2)}68%{transform:translate(var(--dx),var(--dy)) scale(1.1,.9)}84%{transform:translate(calc(var(--dx)*.4),calc(var(--dy)*.4)) scale(.38,.7)}}
+@keyframes out{
+  0%,100%{transform:translate(0,0) scale(.1)}
+  20%{transform:translate(calc(var(--dx)*var(--n)*.55),calc(var(--dy)*var(--n)*.55)) scale(.7,.55)}
+  36%{transform:translate(calc(var(--dx)*var(--n)),calc(var(--dy)*var(--n))) scale(1.05,.88)}
+  56%{transform:translate(var(--dx),var(--dy)) scale(1.1,.92)}
+  74%{transform:translate(calc(var(--dx)*var(--n)*1.04),calc(var(--dy)*var(--n)*1.04)) scale(.92,1.08)}
+  88%{transform:translate(calc(var(--dx)*var(--n)*.5),calc(var(--dy)*var(--n)*.5)) scale(.6,.5)}}
 .bb{position:absolute;inset:0;z-index:-1;pointer-events:none;filter:url(#goo-m)}
 .bb .g{--c:var(--bl)}
 .has-bb{position:relative;overflow:hidden;isolation:isolate}
@@ -74,8 +80,8 @@ header p{margin:2px 0 0;color:var(--muted);font-size:13px}
 .tabs{position:relative;display:inline-flex;gap:2px;padding:5px;background:var(--surface);border-radius:99px;max-width:100%}
 .tabgoo{position:absolute;inset:0;filter:url(#goo-t);pointer-events:none}
 .tb{position:absolute;top:5px;bottom:5px;left:5px;width:60px;border-radius:99px;background:var(--ink)}
-.t1{transition:left .3s cubic-bezier(.4,1.4,.5,1),width .3s ease}
-.t2{transition:left .6s cubic-bezier(.3,1,.4,1),width .6s ease}
+.t1{transition:left .7s cubic-bezier(.3,1.2,.5,1),width .7s ease}
+.t2{transition:left 1.3s cubic-bezier(.3,1,.4,1),width 1.3s ease}
 .tab{position:relative;z-index:1;padding:9px 17px;border-radius:99px;font-weight:500;font-size:14px;white-space:nowrap;display:inline-flex;align-items:center;gap:8px;color:var(--ink);transition:color .25s}
 .tab .ti{font-size:17px}
 .tab[aria-selected="true"]{color:var(--bg)}
@@ -89,7 +95,7 @@ header p{margin:2px 0 0;color:var(--muted);font-size:13px}
 .bubble{position:relative;flex:1;background:var(--surface);border-radius:22px;padding:14px 18px;font-size:14.5px}
 .bubble::before{content:"";position:absolute;left:-7px;top:28px;width:16px;height:16px;background:var(--surface);transform:rotate(45deg);border-radius:3px}
 .bubble small{display:block;color:var(--muted);font-weight:500;text-transform:uppercase;letter-spacing:.08em;font-size:11px;margin-bottom:3px}
-.mascot{width:76px;height:76px;flex:none;animation:float 4.5s ease-in-out infinite;overflow:visible}
+.mascot{width:76px;height:76px;flex:none;animation:float 13s ease-in-out infinite;overflow:visible}
 .mascot.sm{width:44px;height:44px}
 .mascot .body,.mascot .mm{fill:var(--peach)}
 .mascot .mm{transform-box:fill-box;transform-origin:center;animation:mout var(--t) ease-in-out var(--dl) infinite}
@@ -128,7 +134,7 @@ header p{margin:2px 0 0;color:var(--muted);font-size:13px}
 .node>.ti{position:relative;z-index:1}
 .node:active{transform:scale(.92)}
 @keyframes nmorph{0%{border-radius:50%}25%{border-radius:38% 62% 56% 44%/58% 40% 60% 42%}50%{border-radius:60% 40% 44% 56%/42% 60% 40% 58%}75%{border-radius:44% 56% 62% 38%/60% 46% 54% 40%}100%{border-radius:56% 44% 40% 60%/46% 58% 42% 54%}}
-.node{animation:nmorph 8s ease-in-out infinite alternate}
+.node{animation:nmorph 28s ease-in-out infinite alternate}
 .node:nth-child(2n){animation-delay:-3s}.node:nth-child(3n){animation-delay:-5.5s}
 .node.opt{width:52px;height:52px;margin:-26px 0 0 -26px;font-size:21px}
 .node.s0{--n:var(--surface)}
@@ -138,10 +144,10 @@ header p{margin:2px 0 0;color:var(--muted);font-size:13px}
 .node.s3{--n:var(--sage)}
 .node.s4{--n:var(--gold)}
 .badge{position:absolute;right:-4px;top:-4px;z-index:2;width:24px;height:24px;border-radius:50%;background:var(--ink);color:var(--bg);font-size:13px;display:grid;place-items:center}
-.node.next,.node.soon{background:none;animation:bob 1.7s ease-in-out infinite,nmorph 6s ease-in-out infinite alternate}
+.node.next,.node.soon{background:none;animation:bob 5s ease-in-out infinite,nmorph 22s ease-in-out infinite alternate}
 .node.next{--n:var(--peach)}
 .node.soon{--n:var(--butter)}
-.node.soon{animation-delay:-.6s,-2s}
+.node.soon{animation-delay:-1.8s,-7s}
 .nb{position:absolute;inset:-40px;z-index:0;filter:url(#goo-m);pointer-events:none;display:grid;place-items:center}
 .nb .g{position:relative;--c:var(--n)}
 .node.next::before{content:"Next up";z-index:3;position:absolute;top:-38px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);font-size:11.5px;font-weight:500;padding:4px 11px;border-radius:12px;white-space:nowrap}
@@ -205,7 +211,6 @@ input[type=search]::placeholder{color:var(--muted)}
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs id="defs"></defs></svg>
-<div class="goo" id="bgblobs" aria-hidden="true"></div>
 <div class="wrap">
   <header>
     <span id="hm"></span>
@@ -233,26 +238,25 @@ const ic=n=>`<i class="ti ti-${n}"></i>`;
 const icf=n=>`<i class="tif tif-${n}"></i>`;
 
 /* gooey filter with grain: blur + alpha threshold merges blobs; fractal noise speckles are clipped to the blob shape */
-function gooFilter(id,std){return `<filter id="${id}" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceGraphic" stdDeviation="${std}" result="b"/><feColorMatrix in="b" type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 20 -9"/></filter>`}
+function gooFilter(id,std){return `<filter id="${id}" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceGraphic" stdDeviation="${std}" result="b"/><feColorMatrix in="b" type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 11 -4.6"/></filter>`}
 $('#defs').innerHTML=gooFilter('goo',14)+gooFilter('goo-m',8)+gooFilter('goo-t',5)+gooFilter('goo-s',3.2);
 
 /* mini blobs: n small circles that leave the centre of a big blob and come back */
-function minis(n,spread,seed,unit,min,rng){
-  let h='';for(let i=0;i<n;i++){
-    const a=((seed*47+i*(360/n)+i*21)%360)*Math.PI/180,d=spread*(.75+((i*53+seed*17)%45)/100);
-    h+=`<i class="m" style="--dx:${(Math.cos(a)*d).toFixed(1)}${unit};--dy:${(Math.sin(a)*d).toFixed(1)}${unit};--sz:${(min+((i*29+seed*11)%rng)).toFixed(0)}${unit};--t:${6+((i*7+seed*5)%6)}s;--dl:-${(i*2.3+seed%5).toFixed(1)}s"></i>`}
+function minis(n,S,seed,unit,min,rng){ /* S = diameter of the big blob; each mini bulges out of its edge, pinches off, drifts, then is pulled back in and fuses */
+  let h='';const R=S/2;for(let i=0;i<n;i++){
+    const a=((seed*47+i*(360/n)+i*21)%360)*Math.PI/180,m=min+((i*29+seed*11)%rng),far=R+(1.2+((i*53+seed*17)%40)/100)*m,nr=(R*1.0)/far;
+    h+=`<i class="m" style="--dx:${(Math.cos(a)*far).toFixed(1)}${unit};--dy:${(Math.sin(a)*far).toFixed(1)}${unit};--n:${nr.toFixed(3)};--sz:${m.toFixed(1)}${unit};--t:${30+((i*7+seed*5)%14)}s;--dl:-${(i*8+seed*3%11).toFixed(1)}s"></i>`}
   return h}
-function bb(seed,size,spread,n,pos){return `<span class="bb" aria-hidden="true"><span class="g" style="${pos};width:${size}px;height:${size}px"><i class="big" style="animation-delay:-${seed%9}s"></i>${minis(n,spread,seed,'px',Math.round(size*.09),Math.round(size*.1))}</span></span>`}
+function bb(seed,size,spread,n,pos){return `<span class="bb" aria-hidden="true"><span class="g" style="${pos};width:${size}px;height:${size}px"><i class="big" style="animation-delay:-${seed%9}s"></i>${minis(n,size,seed,'px',Math.round(size*.09),Math.round(size*.1))}</span></span>`}
 function buildBg(){
   const G=[['--c:var(--peach);width:42vmax;height:42vmax;left:-14vmax;top:-14vmax',1,'34s',0],['--c:var(--lav);width:34vmax;height:34vmax;right:-12vmax;top:10vh',2,'40s',-9],['--c:var(--sage);width:38vmax;height:38vmax;left:8vw;bottom:-24vmax',3,'36s',-3],['--c:var(--butter);width:22vmax;height:22vmax;right:5vw;bottom:-4vh',4,'44s',-14],['--c:var(--sky);width:16vmax;height:16vmax;left:46vw;top:34vh',5,'48s',-6]];
-  $('#bgblobs').innerHTML=G.map(([st,seed,dr,dd],i)=>{const sz=parseFloat(st.match(/width:([\d.]+)vmax/)[1]);return `<div class="g" style="${st};--dr:${dr};--dd:${dd}s"><i class="big" style="animation-delay:-${i*3.7}s"></i>${minis(5,sz*.78,seed,'vmax',sz*.07,sz*.08)}</div>`}).join('');
+  $('#bgblobs').innerHTML=G.map(([st,seed,dr,dd],i)=>{const sz=parseFloat(st.match(/width:([\d.]+)vmax/)[1]);return `<div class="g" style="${st};--dr:${dr};--dd:${dd}s"><i class="big" style="animation-delay:-${i*3.7}s"></i>${minis(5,sz,seed,'vmax',sz*.07,sz*.08)}</div>`}).join('');
 }
-buildBg();
 
 const BP=['M50 6C74 4 94 22 94 46C94 74 72 94 48 94C24 94 6 74 6 48C6 24 26 8 50 6Z','M50 2C70 2 86 24 86 50C86 78 70 98 50 98C30 98 14 78 14 50C14 24 30 2 50 2Z','M50 14C78 10 98 28 98 50C98 72 76 90 50 90C24 90 2 74 2 50C2 28 22 18 50 14Z','M42 6C66 2 92 18 90 44C98 62 78 94 52 92C34 98 8 80 10 54C2 32 22 10 42 6Z'];
 function mascot(cls){
-  const an=RM?'':`<animate attributeName="d" dur="6s" repeatCount="indefinite" calcMode="spline" keyTimes="0;.25;.5;.75;1" keySplines=".4 0 .6 1;.4 0 .6 1;.4 0 .6 1;.4 0 .6 1" values="${BP[0]};${BP[1]};${BP[2]};${BP[3]};${BP[0]}"/>`;
-  return `<svg class="mascot ${cls||''}" viewBox="0 0 100 100" aria-hidden="true"><g filter="url(#goo-s)"><path class="body" d="${BP[0]}">${an}</path><circle class="mm" cx="50" cy="50" r="9" style="--dx:42px;--dy:-18px;--t:7s;--dl:-1s"/><circle class="mm" cx="50" cy="50" r="7" style="--dx:-40px;--dy:26px;--t:9s;--dl:-4s"/><circle class="mm" cx="50" cy="50" r="6" style="--dx:10px;--dy:46px;--t:8s;--dl:-6s"/></g><g class="eyes"><ellipse cx="37" cy="48" rx="5" ry="6.5"/><ellipse cx="63" cy="48" rx="5" ry="6.5"/></g><ellipse class="cheek" cx="27" cy="60" rx="6.5" ry="4.2"/><ellipse class="cheek" cx="73" cy="60" rx="6.5" ry="4.2"/><path class="mouth" d="M41 62q9 10 18 0"/></svg>`}
+  const an=RM?'':`<animate attributeName="d" dur="24s" repeatCount="indefinite" calcMode="spline" keyTimes="0;.25;.5;.75;1" keySplines=".4 0 .6 1;.4 0 .6 1;.4 0 .6 1;.4 0 .6 1" values="${BP[0]};${BP[1]};${BP[2]};${BP[3]};${BP[0]}"/>`;
+  return `<svg class="mascot ${cls||''}" viewBox="0 0 100 100" aria-hidden="true"><g filter="url(#goo-s)"><path class="body" d="${BP[0]}">${an}</path><circle class="mm" cx="50" cy="50" r="9" style="--dx:42px;--dy:-18px;--t:26s;--dl:-3s"/><circle class="mm" cx="50" cy="50" r="7" style="--dx:-40px;--dy:26px;--t:32s;--dl:-11s"/><circle class="mm" cx="50" cy="50" r="6" style="--dx:10px;--dy:46px;--t:29s;--dl:-19s"/></g><g class="eyes"><ellipse cx="37" cy="48" rx="5" ry="6.5"/><ellipse cx="63" cy="48" rx="5" ry="6.5"/></g><ellipse class="cheek" cx="27" cy="60" rx="6.5" ry="4.2"/><ellipse class="cheek" cx="73" cy="60" rx="6.5" ry="4.2"/><path class="mouth" d="M41 62q9 10 18 0"/></svg>`}
 function ring(p,label){const r=24,c=2*Math.PI*r;return `<div class="ring"><svg viewBox="0 0 58 58"><circle class="rt" cx="29" cy="29" r="${r}"/><circle class="rp" cx="29" cy="29" r="${r}" stroke-dasharray="${(c*p/100).toFixed(1)} ${c.toFixed(1)}" transform="rotate(-90 29 29)"/></svg><span>${esc(label)}</span></div>`}
 function lvl(id){return S.levels.find(l=>l.id===id)}
 function nextUp(){const L=lvl(S.profile.Level||'A0')||S.levels[0];if(!L)return[];const o=[];for(const c of L.cats)for(const i of c.items)if(i.core&&i.status<3&&o.length<2)o.push(i);return o}
@@ -283,7 +287,7 @@ function chapter(c,nxIds){
   c.items.forEach((it,i)=>{
     const p=pts[i],isN=nxIds[0]===it.id,isS=nxIds[1]===it.id,cls=['node','s'+it.status,it.core?'':'opt',isN?'next':isS?'soon':''].join(' ');
     const badge=it.status>=4?`<span class="badge">${icf('star')}</span>`:it.status===3?`<span class="badge">${ic('check')}</span>`:'';
-    const nb=(isN||isS)?`<span class="nb" aria-hidden="true"><span class="g" style="width:68px;height:68px"><i class="big" style="animation-duration:9s"></i>${minis(3,50,i+3,'px',8,8)}</span></span>`:'';
+    const nb=(isN||isS)?`<span class="nb" aria-hidden="true"><span class="g" style="width:68px;height:68px"><i class="big" style="animation-duration:30s"></i>${minis(3,68,i+3,'px',9,8)}</span></span>`:'';
     h+=`<button class="${cls}" style="left:${p.x.toFixed(1)}px;top:${p.y}px" data-id="${it.id}" aria-label="${esc(it.id+': '+it.text+' — '+STATUS[it.status])}">${nb}${ic(icon)}${badge}</button>`;
   });
   return h+`</div></div>`;
