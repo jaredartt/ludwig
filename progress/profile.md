@@ -1,8 +1,8 @@
 # 🧑‍🎓 Learner profile
 _Updated by Ludwig after every message (via tools/ludwig.py). Edit freely._
 
-- **Status:** ACTIVE
-- **Started:** 2026-10-16
+- **Status:** NEW
+- **Started:** (set at first session)
 - **Level:** A0
 - **Native language:** English
 - **Support language:** English-heavy at A0-A1, fading with level (see SKILL.md)

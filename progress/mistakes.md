@@ -3,5 +3,3 @@ _Maintained by `tools/ludwig.py`. Recent = last 10 chances (x = error, o = corre
 
 | Pattern | Err | OK | Recent | Acc% | First | Last | Status | Example | Tip |
 |---|---|---|---|---|---|---|---|---|---|
-| Rechtschreibung | 1 | 0 | x | 0 | 2026-10-16 | 2026-10-16 | Active | heisse -> heiße | ß after long vowel |
-| V2-Wortstellung | 0 | 1 | o | 100 | 2026-10-16 | 2026-10-16 | Active |  |  |
